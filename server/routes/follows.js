@@ -150,7 +150,6 @@ router.get('/counts/:userId', async (req, res) => {
 });
 
 module.exports = router;
-
 // Get followers of a specific userId
 router.get('/:userId/followers', authenticateToken, async (req, res) => {
   try {
@@ -203,3 +202,4 @@ router.get('/:userId/following', authenticateToken, async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+

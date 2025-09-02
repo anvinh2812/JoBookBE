@@ -40,14 +40,6 @@ router.post('/register', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Set httpOnly cookie
-    res.cookie('jwt', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    });
-
     res.status(201).json({
       message: 'User created successfully',
       token,
@@ -96,14 +88,6 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // Set httpOnly cookie
-    res.cookie('jwt', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    });
-
     res.json({
       message: 'Login successful',
       token,
@@ -120,16 +104,6 @@ router.post('/login', async (req, res) => {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
-});
-
-// Logout
-router.post('/logout', (req, res) => {
-  res.clearCookie('jwt', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-  });
-  res.json({ message: 'Logged out' });
 });
 
 // Get current user

@@ -2,10 +2,8 @@ const jwt = require('jsonwebtoken');
 const pool = require('../config/database');
 
 const authenticateToken = async (req, res, next) => {
-  const tokenFromCookie = req.cookies && req.cookies.jwt;
   const authHeader = req.headers['authorization'];
-  const tokenFromHeader = authHeader && authHeader.split(' ')[1];
-  const token = tokenFromCookie || tokenFromHeader;
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
     return res.status(401).json({ message: 'Access token required' });
